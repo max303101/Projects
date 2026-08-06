@@ -1,0 +1,44 @@
+import logo from './logo.svg';
+import './App.css';
+import { useState } from 'react';
+
+function App() {
+
+  const[a, setA] = useState(0)
+  const begin = () => 
+    {
+      if(isFinite(a))
+      {
+        let a_sub = Number(a)
+        let k = Number(0)
+        while(a_sub != 1)
+        {
+          if(a_sub%2 == 0)
+          {
+            a_sub = a_sub / 2
+            k++
+            console.log("a = " + a_sub + "\nk = " + k)
+          }
+          else
+          {
+            a_sub = (a_sub * 3) + 1
+            k++
+            console.log("a = " + a_sub + "\nk = " + k)
+          }
+        }
+      }
+      else
+      {
+        alert("podaj liczbę naturalną")
+      }
+    }
+
+  return (
+    <div className="App">
+      <input type='number' onChange={(e) => {setA(e.target.value)}} placeholder='podaj liczbę naturalną'></input><br/>
+      <button onClick={begin}>Zatwierdź</button>
+    </div>
+  );
+}
+
+export default App;

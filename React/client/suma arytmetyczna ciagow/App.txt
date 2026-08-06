@@ -1,0 +1,81 @@
+import { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [first, setFirst] = useState("");
+  const [krok, setKrok] = useState("");
+  const [last, setLast] = useState("");
+  const [suma, setSuma] = useState(null);
+
+  const obliczSume = () => {
+    if (first === "" || krok === "" || last === "") {
+      alert("Wypełnij wszystkie pola.");
+      return;
+    }
+
+    const a1 = Number(first);
+    const r = Number(krok);
+    const an = Number(last);
+
+    if (!Number.isFinite(a1) || !Number.isFinite(r) || !Number.isFinite(an)) {
+      alert("Wprowadź poprawne liczby.");
+      return;
+    }
+
+    if (a1 === an && r !== 0) {
+      alert("Ostatni wyraz ma być inny od pierwszego gdy krok = 0.");
+      return;
+    }
+
+    if (r === 0) {
+      alert("Krok nie może być 0.");
+      return;
+    }
+    const steps = (an - a1) / r;
+    if (steps < 0 || !Number.isInteger(steps)) {
+      alert("Ostatni wyraz nie jest osiągalny.");
+      return;
+    }
+
+    const n = steps + 1;
+    const S = (n * (a1 + an)) / 2;
+
+    setSuma(S);
+  };
+
+  return (
+    <div className="App">
+      <h2>Suma ciągu arytmetycznego</h2>
+      <input
+        type="number"
+        placeholder="wyraz pierwszy"
+        value={first}
+        onChange={(e) => setFirst(e.target.value)}
+      />
+      <br />
+      <input
+        type="number"
+        placeholder="krok"
+        value={krok}
+        onChange={(e) => setKrok(e.target.value)}
+      />
+      <br />
+      <input
+        type="number"
+        placeholder="wyraz ostatni"
+        value={last}
+        onChange={(e) => setLast(e.target.value)}
+      />
+      <br />
+      <button onClick={obliczSume}>Oblicz</button>
+
+      {suma !== null && (
+        <>
+          <p>Suma: {suma}</p>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default App;
